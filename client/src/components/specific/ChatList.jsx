@@ -11,7 +11,7 @@ const ChatList = ({w='100%', chats=[], chatId, onlineUsers=[], newMessageAlert=[
   return (
     <Stack width={w} >
         {
-            chats.map((data,index)=> {
+            chats?.map((data,index)=> {
                 return <ChatItem/>
             })
         }
