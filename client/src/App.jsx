@@ -14,7 +14,7 @@ let user = true;
 const App = () => {
   return (
     <BrowserRouter>
-      <Suspense fallback={<Loader/>}>
+      <Suspense fallback={<Loader/ >}>
         <Routes>
           <Route element={<ProtectRoute user={user} />}>
             <Route path="/" element={<Home />} />

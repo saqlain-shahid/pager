@@ -33,17 +33,21 @@ const Header = () => {
 
   const handleMobile = () => {
     console.log("first");
+    setIsMobile((prev)=>!prev)
   };
   const openSearch = () => {
     setIsSearch((prev)=>!prev)
   };
   const openNewGroup = () => {
     console.log("first");
+    setIsNewGroup((prev)=>!prev)
   };
   const openNotification = () =>{
     console.log('first')
+    setIsNotification((prev)=>!prev)
   }
   const navigateToGroup = () => navigate('/group');
+  
   const logOutHandler = () => {
     console.log('first')
   }
