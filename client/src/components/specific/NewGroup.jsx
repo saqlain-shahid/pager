@@ -7,7 +7,7 @@ import {
  TextField,
  Button
 } from "@mui/material";
-import { sampleUsers } from '../constants/sampleData';
+import { sampleUsers } from '../../constants/sampleData';
 import UserItem from '../shared/UserItem';
 import {useInputValidation} from '6pp'
 

@@ -1,5 +1,5 @@
 import React, { Suspense, useState, lazy } from "react";
-import { orange } from "../constants/color";
+import { orange } from "../../constants/color";
 import {
   AppBar,
   Box,
@@ -46,7 +46,7 @@ const Header = () => {
     console.log('first')
     setIsNotification((prev)=>!prev)
   }
-  const navigateToGroup = () => navigate('/group');
+  const navigateToGroup = () => navigate('/groups');
   
   const logOutHandler = () => {
     console.log('first')

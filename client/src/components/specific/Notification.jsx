@@ -9,7 +9,7 @@ import {
  Button
  
 } from "@mui/material";
-import { sampleNotifications } from "../constants/sampleData";
+import { sampleNotifications } from "../../constants/sampleData";
 const Notification = () => {
 
   const friendRequestHandler = ({_id, accept}) => {

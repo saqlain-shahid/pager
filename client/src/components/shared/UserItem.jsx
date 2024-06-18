@@ -9,7 +9,7 @@ const UserItem = ({
   handlerIsLoading,
   isAdded = false,
   styling = {},
-  isAdded=false 
+
 }) => {
   const { name, _id, avatar } = user;
 
