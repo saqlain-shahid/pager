@@ -36,6 +36,7 @@ const login = TryCatch(async(req,res,next) => {
     
     sendToken(res, user, 200, `Welcome back ${user.name}`)
 })
+
 //profile
 const getMyProfile = TryCatch(async(req,res) => {
   const user = await User.findById(req.user)
@@ -50,7 +51,16 @@ const logout = TryCatch(async(req,res) => {
   return res.status(200).cookie('pager-token','',{...cookieOption, maxAge:0}).json({
     success: true,
     message: 'Logged out successfully',
-  })
-  
+  }) 
 })
-export { login, newUser, getMyProfile, logout };
+
+//searchUserr
+const searchUser = TryCatch(async(req,res) => {
+  const {name} = req.query
+  
+  return res.status(200).json({
+    success: true,
+    message: name
+  })
+})
+export { login, newUser, getMyProfile, logout, searchUser }
