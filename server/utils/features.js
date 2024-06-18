@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 import jwt from 'jsonwebtoken'
 
 const cookieOption = {
-  maxAge: '10*24*60*60*1000', //10days
+  maxAge: '604800000', //7days
   sameSite: 'none',
   httpOnly: true,
   secure: true,
@@ -24,8 +24,8 @@ const sendToken = (res,user,code,message) => {
   return res.status(code).cookie('pager-token',token,cookieOption).json({
     success: true,
     token,
+    user,
     message,
-    user
   })
 }
 
@@ -37,4 +37,7 @@ const TryCatch = (passedFunc) => async(req,res,next) => {
   }
 }
 
-export {connectDB, sendToken, TryCatch}
+const emitEvent = (req,event,users,data) => {
+  console.log('emitting envt', event)
+}
+export {connectDB, sendToken, TryCatch, emitEvent}
