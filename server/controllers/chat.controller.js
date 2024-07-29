@@ -163,8 +163,9 @@ const removeMember = TryCatch(async(req,res,next)=> {
 //leave group
 const leaveGroup = TryCatch(async(req,res,next)=> {
     const chatId = req.params.id
-
+    
     const chat = await Chat.findById(chatId)
+    
     if(!chat)
         return next(new ErrorHandler('Chat not found', 404))
 
@@ -172,6 +173,9 @@ const leaveGroup = TryCatch(async(req,res,next)=> {
         return next(new ErrorHandler('This is not a group chat',400))
     
     const remainingMembers = chat.members.filter((member)=> member.toString() !== req.user.toString())
+    if(remainingMembers.length < 3) 
+        return next(ErrorHandler('Group must have at least 3 members', 400))
+
     if(chat.creator.toString() === req.user.toString()){
       const randomMember = Math.floor(Math.random()*remainingMembers.length)  
       const newCreator = remainingMembers[randomMember] 
@@ -180,8 +184,7 @@ const leaveGroup = TryCatch(async(req,res,next)=> {
 
     chat.members = remainingMembers
     const [user] = await Promise.all(
-        [User.findById(req.user, 'name'),
-        chat.save()])
+        [User.findById(req.user, 'name'),chat.save()])
 
     emitEvent(
         req,
