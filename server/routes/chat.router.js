@@ -16,7 +16,7 @@ router.put('/removemember',removeMember)
 router.delete('/leave/:id',leaveGroup)
 
 //send attachment 
-//get msg
+//get msgs
 //get chat detail,rename,delete
 
 export default router
