@@ -40,4 +40,8 @@ const TryCatch = (passedFunc) => async(req,res,next) => {
 const emitEvent = (req,event,users,data) => {
   console.log('emitting envt', event)
 }
-export {connectDB, sendToken, TryCatch, emitEvent}
+const deleteFilesFromCloudinary = async(public_ids) => {
+
+}
+
+export {connectDB, sendToken, TryCatch, emitEvent, cookieOption, deleteFilesFromCloudinary}
