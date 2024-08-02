@@ -212,7 +212,7 @@ const leaveGroup = TryCatch(async (req, res, next) => {
   });
 });
 
-//send attachments
+//send attachments/ msgs
 const sendAttachments = TryCatch(async (req, res, next) => {
   const { chatId } = req.body;
   const [chat, me] = await Promise.all([
@@ -362,12 +362,12 @@ const getMessages = TryCatch(async (req,res,next) => {
     Message.countDocuments({chat: chatId})
     ])
 
-    const totalPages = Math.ceil(totalMessagesCount / limit)
+    const totalPages = Math.ceil(totalMessagesCount / resultPerPage) || 0
 
     return res.status(200).json({
         success: true,
         messages: messages.reverse(),
-        totalPages
+        totalPages,
 
     })
 })
