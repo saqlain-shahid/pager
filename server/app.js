@@ -16,6 +16,7 @@ dotenv.config({
 //DB
 const mongoURI = process.env.MONGO_URI
 const port = process.env.PORT || 3000
+export const adminSecretKey = process.env.ADMIN_SECRET_KEY || 'sasakelojihitamori'
 connectDB(mongoURI)
 // createUser(10) //fakerrr
 // createSingleChats(10) //fakerr

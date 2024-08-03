@@ -1,6 +1,5 @@
-import { body, validationResult, check, param , query} from "express-validator";
+import { body, validationResult, check, param, query } from "express-validator";
 import { ErrorHandler } from "../utils/utility.js";
-
 
 const validateHandler = (req, res, next) => {
   const errors = validationResult(req);
@@ -46,34 +45,35 @@ const removeMemberValidator = () => [
   body("userId", "Please Enter User ID").notEmpty(),
 ];
 
-
-  const sendAttachmentsValidator = () => [
-    body("chatId", "Please Enter Chat ID").notEmpty(),
-    check("files").notEmpty()
-    .withMessage('Please Upload Attahments')
+const sendAttachmentsValidator = () => [
+  body("chatId", "Please Enter Chat ID").notEmpty(),
+  check("files")
+    .notEmpty()
+    .withMessage("Please Upload Attahments")
     .isArray({ min: 1, max: 5 })
     .withMessage("Attachements must be 1-5"),
-  ];
+];
 
-  const chatIdValidator = () => [
-    param("id", "Please Enter Chat ID").notEmpty(),
-  ];
-  const renameValidator = () => [
-    param("id", "Please Enter Chat ID").notEmpty(),
-    body("name", "Please Enter New Name").notEmpty(),
-  ];
-  const sendRequestvalidator = () => [
-    body("userId", "Please Enter User ID").notEmpty()
-  ]
+const chatIdValidator = () => [param("id", "Please Enter Chat ID").notEmpty()];
+const renameValidator = () => [
+  param("id", "Please Enter Chat ID").notEmpty(),
+  body("name", "Please Enter New Name").notEmpty(),
+];
+const sendRequestvalidator = () => [
+  body("userId", "Please Enter User ID").notEmpty(),
+];
 
-  const acceptRequestvalidator = () => [
-    body("requestId", "Please Enter Request ID").notEmpty(),
-    body("accept").notEmpty()
-    .withMessage('Please Add Accept')
+const acceptRequestvalidator = () => [
+  body("requestId", "Please Enter Request ID").notEmpty(),
+  body("accept")
+    .notEmpty()
+    .withMessage("Please Add Accept")
     .isBoolean()
-    .withMessage('Accept must be a boolean')
-
-  ]
+    .withMessage("Accept must be a boolean"),
+];
+const adminLoginvalidator = () => [
+  body("secretKey", "Please Enter Secret Key").notEmpty(),
+];
 
 export {
   registerValidator,
@@ -85,5 +85,7 @@ export {
   sendAttachmentsValidator,
   chatIdValidator,
   renameValidator,
-  sendRequestvalidator,acceptRequestvalidator
+  sendRequestvalidator,
+  acceptRequestvalidator,
+  adminLoginvalidator
 };

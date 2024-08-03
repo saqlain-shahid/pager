@@ -1,15 +1,28 @@
-import express from 'express'
-import { allChats, allMessages, allUsers, getDashboardStats } from '../controllers/admin.controller.js'
+import express from "express";
+import {
+  adminLogin,
+  adminLogout,
+  allChats,
+  allMessages,
+  allUsers,
+  getAdminData,
+  getDashboardStats,
+} from "../controllers/admin.controller.js";
+import { adminLoginvalidator, validateHandler } from "../lib/validators.js";
+import { adminOnly } from "../middlewares/auth.js";
 
-const router = express.Router()
+const router = express.Router();
 
-router.get('/')
-router.post('/verify')
-router.get('/logout')
 
-router.get('/users', allUsers)
-router.get('/chats', allChats)
-router.get('/messages',allMessages)
-router.get('/stats',getDashboardStats)
+router.post("/verify", adminLoginvalidator(), validateHandler, adminLogin);
+router.get("/logout", adminLogout);
 
-export default router
+// private routee
+router.use(adminOnly)
+router.get("/",getAdminData);
+router.get("/users", allUsers);
+router.get("/chats", allChats);
+router.get("/messages", allMessages);
+router.get("/stats", getDashboardStats);
+
+export default router;
