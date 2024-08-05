@@ -10,11 +10,13 @@ import { ErrorHandler } from "../utils/utility.js";
 import { Chat } from "../models/chat.model.js";
 import { Request } from "../models/request.model.js";
 import { NEW_REQUEST, REFETCH_CHATS } from "../constants/events.js";
-import { getOtherMember } from '../lib/helper.js'
+import { getOtherMember } from "../lib/helper.js";
 
 //create a new user and save it to the DB and save it to cookie
-const newUser = async (req, res, next) => {
+const newUser = TryCatch(async (req, res, next) => {
   const { name, username, password, bio } = req.body;
+  const file = req.file;
+  if (!file) return next(new ErrorHandler("Please Upload Avatar"));
 
   const avatar = {
     public_id: "er",
@@ -29,7 +31,7 @@ const newUser = async (req, res, next) => {
     avatar,
   });
   sendToken(res, user, 201, "User created");
-};
+});
 
 //loginn
 const login = TryCatch(async (req, res, next) => {
@@ -47,10 +49,10 @@ const login = TryCatch(async (req, res, next) => {
 });
 
 //profile
-const getMyProfile = TryCatch(async (req, res,next) => {
+const getMyProfile = TryCatch(async (req, res, next) => {
   const user = await User.findById(req.user);
 
-  if(!user) return next(new ErrorHandler('User not found', 404))
+  if (!user) return next(new ErrorHandler("User not found", 404));
 
   res.status(200).json({
     success: true,
@@ -59,7 +61,7 @@ const getMyProfile = TryCatch(async (req, res,next) => {
 });
 
 //logout
-const logout = TryCatch(async (req,res) => {
+const logout = TryCatch(async (req, res) => {
   return res
     .status(200)
     .cookie("pager-token", "", { ...cookieOption, maxAge: 0 })
@@ -227,5 +229,5 @@ export {
   sendFriendRequest,
   acceptFriendRequest,
   getMyNotifications,
-  getMyFriends
+  getMyFriends,
 };
